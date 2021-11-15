@@ -15,6 +15,10 @@ Para a composição do compilador vamos estar utilizando as seguintes partes de 
 
 * <h3>MeuSeman.py</h3>
 
+* <h3>Declarações.py</h3>
+
+* <h3>Erros.py</h3>
+
 
 <h2>Estrutura </h2>
 
@@ -36,3 +40,9 @@ Nesta parte do programa vai ser realizada o tratamento das analises sintáticas.
 
 **MeuSeman.py:** 
 Nesta parte é realizada a validação de diversas regras que não pode ser realizadas nas etapas anteriores. Essa serie de validações tem como objetivo permitir que a linguagem seja transcrita para linguagem de maquina, ela relaciona os identificadores com seus dependentes na árvore sintática.
+
+**Declarações.py:** 
+Está contido a estrutura de declarações que serão utilizadas durante a execução. 
+
+**Erros.py:** 
+Nesta parte estão contidas as mensagens quando é detectado algum erro no durante a execução do código. 
