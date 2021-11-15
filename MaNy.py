@@ -1,34 +1,23 @@
-#Autor 1: Nycolas Felipe de Oliveira
-#Autor 2: Matheus Bomfim
-
-# Incluindo caracteres especiais no programa
-# -*- coding: utf-8 -*-
-
+from MeuLex import *
+from MeuEmit import *
+from MeuParse import *
 import sys
-sys.path.append("../..")
 
-import MeuSintax
-import erros
+def main():
+    print("===>Compilador MaNy<===")
 
-show = False
-if len(sys.argv) < 2:
-    print("uso : many [-show] arquivodeentrada")
-    raise SystemExit
+    if len(sys.argv) != 2:
+        sys.exit("->Erro: O compilador precisa de um arquivo de entrada como argumento.")
+    with open(sys.argv[1], 'r') as inputFile:
+        input = inputFile.read()
 
-if len(sys.argv) == 3: 
-    if sys.argv[1] == '-show':
-        show = True; 
-    else:
-        print("Opção Desconhecida '%s'" % sys.argv[1])
-        raise SystemExit 
-    
-    nomearquivo = sys.argv[2]
-else: 
-    nomearquivo = sys.argv[1]
+    # Inicializando o lexer, emitter e parser.
+    lexer = Lexer(input)
+    emitter = Emitter("out.c")
+    parser = Parser(lexer, emitter)
 
-arquivo = open(nomearquivo).read()
+    parser.program() # Iniciando o parser.
+    emitter.writeFile() # Escrevendo o arquivo de saida.
+    print("->Compilação Completa.")
 
-MeuSintax.parser.parse(arquivo)
-
-if show: 
-    print(MeuSintax.var_global) 
+main()

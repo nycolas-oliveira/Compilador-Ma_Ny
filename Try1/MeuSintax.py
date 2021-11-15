@@ -51,17 +51,64 @@ def fim_de_instrucao(p):
 #                 | NOME EPAREN expressao DPAREN'''
 #     t[0] = t[1]
 
-# def p_program(t):
-#     'program : sequencia_declaracoes'
+def p_program(t):
+    'program : sequencia_declaracoes'
 
-#     t[0]=t[1]
+    t[0]=t[1]
 
 
-# def p_sequencia_declaracoes(t):
-#     '''sequencia_declaracoes : declaracoes sequencia_declaracoes
-#                              | declaracoes'''
+def p_sequencia_declaracoes(t):
+    '''sequencia_declaracoes : declaracoes sequencia_declaracoes
+                             | declaracoes'''
 
-#     t[0]=var_global
+    t[0]=var_global
+
+
+def p_declaracoes(t):
+    '''declaracoes  : var_Declaracoes'''
+    t[0]=t[1]
+
+def p_var_declaracoes(t):
+    '''var_Declaracoes : type sequence_var_Especificacoes end'''
+    tmp=t[2]
+    for element in tmp:
+        tmp[element].def_type(t[1])
+        var_global.add(tmp[element])
+    t[0]=tmp
+
+def p_list_var_declaracoes(t):
+    '''list_var_Declaracoes : var_Declaracoes list_var_Declaracoes
+                            | empty'''
+    global var_global
+    if(len(t)>2):
+        if(t[2] is not None):
+            tmp=t[1]
+            tmp.update(t[2])
+            t[0]=tmp
+        else:
+            t[0]=t[1]
+
+def p_var_especificacoes(t):
+    '''var_Especificacoes   : NOME RECEBE expressao
+                            | NOME'''
+    if(len(t)==2):
+        t[0]=Variable(t[1], None, None)
+
+    elif(len(t)==4):
+        t[0]=Variable(t[1], None, t[3])
+
+
+
+def p_sequencia_var_Especificacoes(t):
+    '''sequencia_var_Especificacoes  : var_Especificacoes VIRGULA sequencia_var_Especificacoes
+                                     | var_Especificacoes'''
+    if len(t)<4:
+        tmp={}
+    else:
+        tmp=t[3]
+    tmp[t[1].nome]=t[1]
+    t[0]=tmp
+
 
 
 def p_expressao(p): 
