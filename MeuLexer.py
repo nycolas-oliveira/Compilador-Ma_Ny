@@ -22,18 +22,18 @@ if "many" not in sys.argv[1]:
 reserved = {
 
 	'boleano'	:	'BOLEANO',
-	'parar'	:	'PARAR',
-	'loop'	:	'LOOP',
-	'falso'	:	'FALSO',
-	'se'	:	'SE',
-	'senao'	:	'SENAO',
-	'int'	:	'INT',
-	'retorne':	'RETORNE',
-	'string':	'STRING',
-	'verdadeiro'	:	'VERDADEIRO',
+	'parar'		:	'PARAR',
+	'loop'		:	'LOOP',
+	'falso'		:	'FALSO',
+	'se'		:	'SE',
+	'senao'		:	'SENAO',
+	'int'		:	'INT',
+	'retorne'	:	'RETORNE',
+	'string'	:	'STRING',
+	'verdadeiro':	'VERDADEIRO',
 	'enquanto'	:	'ENQUANTO',
-	'escreva' :	'ESCREVA',
-	'leia' :	'LEIA'
+	'escreva' 	:	'ESCREVA',
+	'leia' 		:	'LEIA'
 
 }
 
