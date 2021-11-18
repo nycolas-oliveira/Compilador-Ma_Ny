@@ -1,15 +1,15 @@
 import sys
 import enum
 
-# Lexer object keeps track of current position in the source code and produces each token.
+# O objeto Lexer rastreia a posição atual no código-fonte e produz cada token.
 class Lexer:
     def __init__(self, input):
-        self.source = input + '\n' # Source code to lex as a string. Append a newline to simplify lexing/parsing the last token/statement.
-        self.curChar = ''   # Current character in the string.
-        self.curPos = -1    # Current position in the string.
+        self.source = input + '\n' 
+        self.curChar = ''   # Caractere atual na string.
+        self.curPos = -1    # Posição atual na string.
         self.nextChar()
 
-    # Process the next character.
+    # Processe o próximo caractere.
     def nextChar(self):
         self.curPos += 1
         if self.curPos >= len(self.source):
@@ -17,24 +17,24 @@ class Lexer:
         else:
             self.curChar = self.source[self.curPos]
 
-    # Return the lookahead character.
+    # Retorne o caractere.
     def peek(self):
         if self.curPos + 1 >= len(self.source):
             return '\0'
         return self.source[self.curPos+1]
 
-    # Invalid token found, print error message and exit.
+    # Token inválido encontrado, imprime mensagem de erro e sai.
     def abort(self, message):
         sys.exit("Erro Lexico. " + message)
 
-    # Return the next token.
+    # Retorna para o proximo token.
     def getToken(self):
         self.skipWhitespace()
         self.skipComment()
         token = None
 
-        # Check the first character of this token to see if we can decide what it is.
-        # If it is a multiple character operator (e.g., !=), number, identifier, or keyword, then we will process the rest.
+        # Verificar o primeiro caracter do token.
+        # Se for um operador de vários caracteres (e.g.,! =), Número, identificador ou palavra-chave, processaremos o resto.
         if self.curChar == '+':
             token = Token(self.curChar, TokenType.PLUS)
         elif self.curChar == '-':
@@ -44,7 +44,7 @@ class Lexer:
         elif self.curChar == '/':
             token = Token(self.curChar, TokenType.SLASH)
         elif self.curChar == '=':
-            # Check whether this token is = or ==
+            # Verifique se este token é = ou ==
             if self.peek() == '=':
                 lastChar = self.curChar
                 self.nextChar()
@@ -52,7 +52,7 @@ class Lexer:
             else:
                 token = Token(self.curChar, TokenType.EQ)
         elif self.curChar == '>':
-            # Check whether this is token is > or >=
+            # Verifique se este token é > ou >=
             if self.peek() == '=':
                 lastChar = self.curChar
                 self.nextChar()
@@ -60,7 +60,7 @@ class Lexer:
             else:
                 token = Token(self.curChar, TokenType.GT)
         elif self.curChar == '<':
-            # Check whether this is token is < or <=
+            # Verifique se este token é < ou <=
             if self.peek() == '=':
                 lastChar = self.curChar
                 self.nextChar()
@@ -76,66 +76,66 @@ class Lexer:
                 self.abort("Esperado !=, Encontrado !" + self.peek())
 
         elif self.curChar == '\"':
-            # Get characters between quotations.
+            # Caracters entre aspas.
             self.nextChar()
             startPos = self.curPos
 
             while self.curChar != '\"':
-                # Don't allow special characters in the string. No escape characters, newlines, tabs, or %.
-                # We will be using C's printf on this string.
+                # Não permita caracteres especiais na string. Sem caracteres de escape, novas linhas, tabulações ou %.
+                # Usando printf de C nesta string.
                 if self.curChar == '\r' or self.curChar == '\n' or self.curChar == '\t' or self.curChar == '\\' or self.curChar == '%':
                     self.abort("Caractere ilegal na string.")
                 self.nextChar()
 
-            tokText = self.source[startPos : self.curPos] # Get the substring.
+            tokText = self.source[startPos : self.curPos] 
             token = Token(tokText, TokenType.STRING)
 
         elif self.curChar.isdigit():
-            # Leading character is a digit, so this must be a number.
-            # Get all consecutive digits and decimal if there is one.
+            # O caractere inicial é um dígito, portanto, deve ser um número.
+            # Obtem todos os dígitos consecutivos e decimais, se houver.
             startPos = self.curPos
             while self.peek().isdigit():
                 self.nextChar()
             if self.peek() == '.': # Decimal!
                 self.nextChar()
 
-                # Must have at least one digit after decimal.
+                # Deve ter pelo menos um dígito após o decimal.
                 if not self.peek().isdigit(): 
                     # Error!
                     self.abort("Caractere ilegal no numero.")
                 while self.peek().isdigit():
                     self.nextChar()
 
-            tokText = self.source[startPos : self.curPos + 1] # Get the substring.
+            tokText = self.source[startPos : self.curPos + 1] # Obtenha a substring.
             token = Token(tokText, TokenType.NUMBER)
         elif self.curChar.isalpha():
-            # Leading character is a letter, so this must be an identifier or a keyword.
-            # Get all consecutive alpha numeric characters.
+            # O caractere inicial é uma letra, portanto, deve ser um identificador ou uma palavra-chave.
+            # Obtem todos os caracteres alfanuméricos consecutivos.
             startPos = self.curPos
             while self.peek().isalnum():
                 self.nextChar()
 
-            # Check if the token is in the list of keywords.
-            tokText = self.source[startPos : self.curPos + 1] # Get the substring.
+            # Verifique se o token está na lista de palavras-chave.
+            tokText = self.source[startPos : self.curPos + 1] # Obtenha a substring.
             keyword = Token.checkIfKeyword(tokText)
             if keyword == None: # Identifier
                 token = Token(tokText, TokenType.IDENT)
-            else:   # Keyword
+            else:   # Palavra chave.
                 token = Token(tokText, keyword)
         elif self.curChar == '\n':
-            # Newline.
+            # Nova linha.
             token = Token('\n', TokenType.NEWLINE)
         elif self.curChar == '\0':
              # EOF.
             token = Token('', TokenType.EOF)
         else:
-            # Unknown token!
+            # token desconhecido 
             self.abort("Token Desconhecido: " + self.curChar)
 
         self.nextChar()
         return token
 
-    # Skip whitespace except newlines, which we will use to indicate the end of a statement.
+    # Pula os espaços em branco, exceto novas linhas.
     def skipWhitespace(self):
         while self.curChar == ' ' or self.curChar == '\t' or self.curChar == '\r':
             self.nextChar()
@@ -146,29 +146,29 @@ class Lexer:
                 self.nextChar()
 
 
-# Token contains the original text and the type of token.
+# Token contém o texto original e o tipo de token.
 class Token:   
     def __init__(self, tokenText, tokenKind):
-        self.text = tokenText   # The token's actual text. Used for identifiers, strings, and numbers.
-        self.kind = tokenKind   # The TokenType that this token is classified as.
+        self.text = tokenText   # Texto real do token. Usado para identificadores, strings e números.
+        self.kind = tokenKind   # TokenType com o qual esse token é classificado.
 
     @staticmethod
     def checkIfKeyword(tokenText):
         for kind in TokenType:
-            # Relies on all keyword enum values being 1XX.
+            # Depende de todos os valores de enum de palavra-chave sendo 1XX.
             if kind.name == tokenText and kind.value >= 100 and kind.value < 200:
                 return kind
         return None
 
 
-# TokenType is our enum for all the types of tokens.
+# TokenType é nosso enum para todos os tipos de tokens.
 class TokenType(enum.Enum):
     EOF = -1
     NEWLINE = 0
     NUMBER = 1
     IDENT = 2
     STRING = 3
-    # Keywords.
+    # Palavras chaves.
     LABEL = 101
     GOTO = 102
     PRINT = 103
@@ -180,7 +180,7 @@ class TokenType(enum.Enum):
     WHILE = 109
     REPEAT = 110
     ENDWHILE = 111
-    # Operators.
+    # Operadores.
     EQ = 201  
     PLUS = 202
     MINUS = 203
