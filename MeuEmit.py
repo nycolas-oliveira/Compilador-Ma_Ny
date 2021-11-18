@@ -1,4 +1,7 @@
-# O objeto Emitter mantém o controle do código gerado e o envia.
+#Autor 1: Nycolas Felipe de Oliveira, 20161120961
+#Autor 2: Matheus Bomfim F. Fonseca, 20161101011
+
+# O objeto Emitter mantém o controle do código e faz a geração do arquivo de saida.
 class Emitter:
     def __init__(self, fullPath):
         self.fullPath = fullPath

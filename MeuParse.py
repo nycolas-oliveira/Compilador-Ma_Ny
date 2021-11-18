@@ -1,7 +1,10 @@
+#Autor 1: Nycolas Felipe de Oliveira, 20161120961
+#Autor 2: Matheus Bomfim F. Fonseca, 20161101011
+
 import sys
 from MeuLex import *
 
-# O objeto analisador rastreia o token atual, verifica se o código corresponde à gramática e emite código ao longo do caminho.
+# O objeto analisador Sintático rastreia o token atual, verifica se o código corresponde à gramática e emite código ao longo do caminho.
 class Parser:
     def __init__(self, lexer, emitter):
         self.lexer = lexer
@@ -66,7 +69,7 @@ class Parser:
         # Verifica se cada rótulo referenciado em um GOTO está declarado.
         for label in self.labelsGotoed:
             if label not in self.labelsDeclared:
-                self.abort("Attempting to GOTO to undeclared label: " + label)
+                self.abort("Tentando encontrar um label não declarado: " + label)
 
 
     # Uma das seguintes afirmações ...
@@ -128,7 +131,7 @@ class Parser:
 
             # Certifca de que este rótulo ainda não exista.
             if self.curToken.text in self.labelsDeclared:
-                self.abort("Label already exists: " + self.curToken.text)
+                self.abort("A Label já existe: " + self.curToken.text)
             self.labelsDeclared.add(self.curToken.text)
 
             self.emitter.emitLine(self.curToken.text + ":")
@@ -176,7 +179,7 @@ class Parser:
 
         # Se não é uma declaração válida. Erro!
         else:
-            self.abort("Invalid statement at " + self.curToken.text + " (" + self.curToken.kind.name + ")")
+            self.abort("Declaração Invalida em " + self.curToken.text + " (" + self.curToken.kind.name + ")")
 
         # Nova linha.
         self.nl()
@@ -235,13 +238,13 @@ class Parser:
         elif self.checkToken(TokenType.IDENT):
             # Certifique-se de que a variável já existe.
             if self.curToken.text not in self.symbols:
-                self.abort("Referencing variable before assignment: " + self.curToken.text)
+                self.abort("Referenciando uma variavel não incializada: " + self.curToken.text)
 
             self.emitter.emit(self.curToken.text)
             self.nextToken()
         else:
             # Error!
-            self.abort("Unexpected token at " + self.curToken.text)
+            self.abort("Token Inesperado em: " + self.curToken.text)
 
     # nl ::= '\n'+
     def nl(self):

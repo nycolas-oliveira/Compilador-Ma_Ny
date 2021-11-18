@@ -1,0 +1,15 @@
+PRINT "===>TESTE 5<==="
+PRINT "->Somando dois valores"
+
+LET v1 = 0 
+LET v2 = 0
+
+PRINT "Entre com os valores:"
+
+INPUT v1 
+INPUT v2 
+
+LET resultado = v1 + v2 
+
+PRINT "O resultado e:"
+PRINT resultado

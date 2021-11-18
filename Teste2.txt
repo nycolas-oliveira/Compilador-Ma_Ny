@@ -1,0 +1,5 @@
+PRINT "===>TESTE 2<==="
+
+LET MinhaVariavel = 333
+
+PRINT MinhaVariavel

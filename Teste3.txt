@@ -1,0 +1,12 @@
+PRINT "===>TESTE 3<==="
+
+LET MinhaVariavel = 0
+PRINT "Valor Inicial da Variavel:"
+PRINT MinhaVariavel
+
+PRINT "Insira um valor:"
+INPUT MinhaVariavel
+
+
+PRINT "Novo Valor da Variavel: "
+PRINT MinhaVariavel

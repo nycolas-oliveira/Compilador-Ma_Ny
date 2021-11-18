@@ -1,3 +1,6 @@
+#Autor 1: Nycolas Felipe de Oliveira, 20161120961
+#Autor 2: Matheus Bomfim F. Fonseca, 20161101011
+
 import sys
 import enum
 
