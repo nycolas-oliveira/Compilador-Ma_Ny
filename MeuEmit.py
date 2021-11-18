@@ -1,4 +1,4 @@
-# Emitter object keeps track of the generated code and outputs it.
+# O objeto Emitter mantém o controle do código gerado e o envia.
 class Emitter:
     def __init__(self, fullPath):
         self.fullPath = fullPath
