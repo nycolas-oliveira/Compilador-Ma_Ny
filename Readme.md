@@ -41,5 +41,6 @@ No "MeuLexer" será realizada toda a parte do tratamento da analise léxica, nel
 Nesta parte do programa vai ser realizada o tratamento das analises sintáticas. Nela é feita a separação dos símbolos presentes na linguagem, o grupo de sentença compostas dentro de uma string, o conjunto de símbolos utilizados(letras) e a gramatica empregada. 
 
 **MeuEmit.py:** 
+
 Nesta parte é realizada a validação de diversas regras que não pode ser realizadas nas etapas anteriores. Essa serie de validações tem como objetivo permitir que a linguagem seja transcrita para linguagem C, alem de fazer a geração do arquivo de saida.
 
