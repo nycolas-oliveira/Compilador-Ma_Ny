@@ -1,6 +1,7 @@
-**<h1>Trabalho final, montagem de um compilador.</h1>**
+**<h1>Trabalho final, montagem do Compilador Many.</h1>**
 
 Este projeto visa a criação de um compilador para a entrega de um projeto de conclusão da disciplina de Compiladores do curso de Engenharia da Computação da UVA 2021.2. 
+O mesmo tem o objetivo de reconhecer uma linguagem inspirada em Basic, compilá-la e fazer a transcrição para linguagem C em um arquivo de Saída.
 
 Autores: 
 Nycolas Felipe de Oliveira, 20161120961
@@ -24,7 +25,7 @@ Para a composição do compilador vamos estar utilizando as seguintes partes de 
 
 <h2>Estrutura </h2>
 
-A estrutura de trabalho inicial pensada, é...: 
+A estrutura de trabalho inicial pensada, e suas respectivas funcionalidades: 
 
 **MaNy.py(main):** 
 
