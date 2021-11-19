@@ -4,7 +4,7 @@ PRINT "->Somando dois valores"
 LET v1 = 0 
 LET v2 = 0
 
-PRINT "Entre com os valores:"
+PRINT Entre com os valores:"
 
 INPUT v1 
 INPUT v2 
