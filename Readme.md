@@ -12,11 +12,11 @@ Matheus Bomfim F. Fonseca, 20161101011
 
 <h2>Composição</h2>
 
-Para a composição do compilador vamos estar utilizando as seguintes partes de códigos para estrutura-lo:
+Para a composição do compilador vamos estar utilizando as seguintes estruturas:
  
 * <h3>MaNy.py</h3>
 
-* <h3>MeuGrammar.py</h3>
+* <h3>MeuGrammar.txt</h3>
 
 * <h3>MeuLex.py</h3>
 
